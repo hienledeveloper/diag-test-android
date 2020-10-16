@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
  */
 object RetrofitClient {
 
-    private const val TIME_OUT = 5L
+    private const val TIME_OUT = 10L
 
     val retrofit: Retrofit = Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create()).client(okHttpClient).build()
