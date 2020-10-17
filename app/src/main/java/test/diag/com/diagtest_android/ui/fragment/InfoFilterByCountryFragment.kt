@@ -5,9 +5,11 @@ import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import test.diag.com.diagtest_android.R
 import test.diag.com.diagtest_android.base.BaseFragment
+import test.diag.com.diagtest_android.base.BaseViewModelFragment
 import test.diag.com.diagtest_android.databinding.FragmentInfoFilterByCountryBinding
 import test.diag.com.diagtest_android.model.config.BundleKey
 import test.diag.com.diagtest_android.model.local.CovidArea
+import test.diag.com.diagtest_android.model.local.ErrorModel
 import test.diag.com.diagtest_android.modules.behavior.BehaviorViewModel
 import test.diag.com.diagtest_android.modules.summary.SummaryViewModel
 import test.diag.com.diagtest_android.view.adapter.CovidAreaAdapter
@@ -16,7 +18,7 @@ import test.diag.com.diagtest_android.view.adapter.CovidAreaAdapter
  * Created By Ben on 10/17/20
  */
 @AndroidEntryPoint
-class InfoFilterByCountryFragment : BaseFragment<FragmentInfoFilterByCountryBinding>() {
+class InfoFilterByCountryFragment : BaseViewModelFragment<FragmentInfoFilterByCountryBinding>() {
 
     private val summaryViewModel: SummaryViewModel by viewModels()
 
@@ -69,6 +71,13 @@ class InfoFilterByCountryFragment : BaseFragment<FragmentInfoFilterByCountryBind
             }
         }
         areaAdapter?.fetch(areas)
+    }
+
+    override fun onErrorResponse(errorModel: ErrorModel, tag: String?) {
+        showAlertDialog(errorModel.errorString) {
+            summaryViewModel.getSummary()
+            summaryViewModel.getInfoBySlugCountry(strSlugCountry)
+        }
     }
 
 }

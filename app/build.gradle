@@ -10,11 +10,11 @@ android {
     defaultConfig {
         applicationId "test.diag.com.diagtest_android"
         minSdkVersion 19
-        targetSdkVersion 29
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "test.diag.com.diagtest_android.CustomTestRunner"
         buildConfigField "String", "BASE_URL", '"https://api.covid19api.com/"'
     }
 
@@ -57,6 +57,10 @@ android {
         disable 'ContentDescription'
     }
 
+}
+
+hilt {
+    enableTransformForLocalTests = true
 }
 
 dependencies {

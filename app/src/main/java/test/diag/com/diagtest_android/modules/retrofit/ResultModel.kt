@@ -21,4 +21,8 @@ class ResultModel<T>(
         }
         return this
     }
+
+    fun onCompleted(callback: () -> Unit) {
+        callback.invoke()
+    }
 }
