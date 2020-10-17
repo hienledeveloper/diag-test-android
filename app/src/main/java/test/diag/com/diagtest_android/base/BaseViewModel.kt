@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import test.diag.com.diagtest_android.model.local.ErrorModel
-import test.diag.com.diagtest_android.modules.retrofit.ResponseModel
 import test.diag.com.diagtest_android.modules.retrofit.ResultModel
 import test.diag.com.diagtest_android.modules.retrofit.exception.ApiException
 import java.net.UnknownHostException

@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 /**
  * Created By Ben on 10/16/20
  */
-abstract class BaseFragment <T : ViewDataBinding> : Fragment() {
+abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
 
     var binding: T? = null
 

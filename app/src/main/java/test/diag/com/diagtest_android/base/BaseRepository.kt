@@ -1,8 +1,6 @@
 package test.diag.com.diagtest_android.base
 
-import test.diag.com.diagtest_android.modules.retrofit.ResponseModel
 import test.diag.com.diagtest_android.modules.retrofit.ResultModel
-import test.diag.com.diagtest_android.modules.retrofit.exception.ApiException
 
 /**
  * Created By Ben on 10/16/20

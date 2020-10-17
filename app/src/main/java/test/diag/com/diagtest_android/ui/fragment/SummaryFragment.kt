@@ -1,13 +1,15 @@
 package test.diag.com.diagtest_android.ui.fragment
 
-import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import test.diag.com.diagtest_android.R
-import test.diag.com.diagtest_android.base.BaseFragment
+import test.diag.com.diagtest_android.base.BaseNavigateFragment
 import test.diag.com.diagtest_android.databinding.FragmentSummaryBinding
+import test.diag.com.diagtest_android.model.config.BundleKey
 import test.diag.com.diagtest_android.model.local.Country
+import test.diag.com.diagtest_android.modules.navigate.NavigateScreen
 import test.diag.com.diagtest_android.modules.summary.SummaryViewModel
 import test.diag.com.diagtest_android.view.adapter.CountryAdapter
 
@@ -15,7 +17,7 @@ import test.diag.com.diagtest_android.view.adapter.CountryAdapter
  * Created By Ben on 10/16/20
  */
 @AndroidEntryPoint
-class SummaryFragment : BaseFragment<FragmentSummaryBinding>() {
+class SummaryFragment : BaseNavigateFragment<FragmentSummaryBinding>() {
 
     private val summaryViewModel: SummaryViewModel by viewModels()
 
@@ -34,7 +36,10 @@ class SummaryFragment : BaseFragment<FragmentSummaryBinding>() {
         if (countryAdapter == null) {
             countryAdapter = CountryAdapter()
             countryAdapter?.onItemClick = { country ->
-                Toast.makeText(requireContext(), country.country, Toast.LENGTH_LONG).show()
+                navigateTo(
+                    NavigateScreen.INFO_FILTER_BY_COUNTRY,
+                    bundleOf(BundleKey.COUNTRY_SLUG.name to country.slug)
+                )
             }
             binding?.rclCountry?.apply {
                 this.setHasFixedSize(true)

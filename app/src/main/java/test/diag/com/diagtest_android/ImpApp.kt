@@ -8,7 +8,7 @@ import dagger.hilt.android.HiltAndroidApp
  * Created By Ben on 10/16/20
  */
 @HiltAndroidApp
-class ImpApp: MultiDexApplication() {
+class ImpApp : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()

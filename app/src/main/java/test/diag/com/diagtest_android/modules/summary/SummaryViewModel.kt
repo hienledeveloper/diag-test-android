@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import test.diag.com.diagtest_android.base.BaseViewModel
 import test.diag.com.diagtest_android.model.local.Country
+import test.diag.com.diagtest_android.model.local.CovidArea
 import test.diag.com.diagtest_android.model.local.Global
 
 /**
@@ -21,11 +22,22 @@ class SummaryViewModel @ViewModelInject constructor(private val summaryRepositor
     private val global = MutableLiveData<Global>()
     val observeGlobal: LiveData<Global> = global
 
+    private val covidArea = MutableLiveData<List<CovidArea>>()
+    val observeCovidArea: LiveData<List<CovidArea>> = covidArea
+
     fun getSummary() {
         viewModelScope.launch {
             executeAPI(summaryRepository.getSummary()) { summary ->
                 countries.postValue(summary.countries)
                 global.postValue(summary.global)
+            }
+        }
+    }
+
+    fun getInfoBySlugCountry(strSlugCountry: String) {
+        viewModelScope.launch {
+            executeAPI(summaryRepository.getInfoByCountry(strSlugCountry)) { areas ->
+                covidArea.postValue(areas)
             }
         }
     }

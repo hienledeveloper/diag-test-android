@@ -13,4 +13,4 @@ data class SummaryResponse(
     var global: Global?,
     @SerializedName("Countries")
     var countries: List<Country> = emptyList()
-): ResponseModel()
+) : ResponseModel()

@@ -12,7 +12,6 @@
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
         android:paddingStart="@dimen/space_medium"
         android:paddingEnd="@dimen/space_medium"
         android:paddingBottom="@dimen/space_medium"
@@ -32,18 +31,17 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_medium"
                     android:text="@{data.country}"
                     android:textColor="#000"
                     android:textSize="16sp"
                     android:typeface="monospace" />
 
-                <TextView
+                <include
+                    layout="@layout/view_status_confirmed_board"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{`TotalDeaths: ` + data.totalDeaths}"
-                    android:textColor="#4a4a4a"
-                    android:textSize="12sp"
-                    android:textStyle="italic" />
+                    app:statusConfirmed="@{data}" />
 
             </LinearLayout>
 
