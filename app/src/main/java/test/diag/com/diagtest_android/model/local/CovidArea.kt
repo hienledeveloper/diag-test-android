@@ -1,6 +1,7 @@
 package test.diag.com.diagtest_android.model.local
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class CovidArea(
     @SerializedName("Cases")
@@ -10,7 +11,7 @@ data class CovidArea(
     @SerializedName("CountryCode")
     val countryCode: String,
     @SerializedName("Date")
-    val date: String,
+    val date: Date,
     @SerializedName("Lat")
     val lat: String,
     @SerializedName("Lon")

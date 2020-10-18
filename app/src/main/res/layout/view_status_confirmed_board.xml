@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{`New Confirmed: ` + statusConfirmed.newConfirmed}"
-                android:textColor="@color/textColor"
+                android:textColor="#000"
                 android:textSize="14sp"
                 tools:text="New Confirmed" />
 
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@{`Total Confirmed: ` + statusConfirmed.totalConfirmed}"
-                android:textColor="@color/textColor"
+                android:textColor="#000"
                 android:textSize="14sp"
                 tools:text="New Confirmed" />
 
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@{`New Deaths: ` + statusConfirmed.newDeaths}"
-                android:textColor="@color/textColor"
+                android:textColor="#000"
                 android:textSize="14sp"
                 tools:text="New Confirmed" />
 
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@{`Total Deaths: ` + statusConfirmed.totalDeaths}"
-                android:textColor="@color/textColor"
+                android:textColor="#000"
                 android:textSize="14sp"
                 tools:text="New Confirmed" />
 
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@{`New Recovered: ` + statusConfirmed.newRecovered}"
-                android:textColor="@color/textColor"
+                android:textColor="#000"
                 android:textSize="14sp"
                 tools:text="New Confirmed" />
 
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@{`Total Recovered: ` + statusConfirmed.totalRecovered}"
-                android:textColor="@color/textColor"
+                android:textColor="#000"
                 android:textSize="14sp"
                 tools:text="New Confirmed" />
 

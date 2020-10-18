@@ -34,9 +34,9 @@ class SummaryViewModel @ViewModelInject constructor(private val summaryRepositor
         }
     }
 
-    fun getInfoBySlugCountry(strSlugCountry: String) {
+    fun getInfoBySlugCountry(strSlugCountry: String, fromDate: String? = null, toDate:String?=null) {
         viewModelScope.launch {
-            executeAPI(summaryRepository.getInfoByCountry(strSlugCountry)) { areas ->
+            executeAPI(summaryRepository.getInfoByCountry(strSlugCountry, fromDate, toDate)) { areas ->
                 covidArea.postValue(areas)
             }
         }

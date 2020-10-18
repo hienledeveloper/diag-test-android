@@ -3,6 +3,8 @@ package test.diag.com.diagtest_android.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import test.diag.com.diagtest_android.helper.NetworkClient
 import test.diag.com.diagtest_android.model.config.RequestState
 import test.diag.com.diagtest_android.model.local.ErrorModel
@@ -22,17 +24,21 @@ abstract class BaseViewModel : ViewModel() {
     val requestStateObserve: LiveData<RequestState> = requestState
 
     suspend fun <T> executeAPI(result: ResultModel<T>, resultCallback: (T) -> Unit) {
-        if (!NetworkClient.available) {
-            notifyError(UnknownHostException())
-            return
-        }
-        requestState.value = RequestState.RUNNING
-        result.onSuccess {
-            resultCallback.invoke(it)
-        }.onError {
-            notifyError(it)
-        }.onCompleted {
-            requestState.value = RequestState.COMPLETED
+        withContext(Dispatchers.IO) {
+            if (!NetworkClient.available) {
+                notifyError(UnknownHostException())
+                return@withContext
+            }
+            withContext(Dispatchers.Main) {
+                requestState.value = RequestState.RUNNING
+                result.onSuccess {
+                    resultCallback.invoke(it)
+                }.onError {
+                    notifyError(it)
+                }.onCompleted {
+                    requestState.value = RequestState.COMPLETED
+                }
+            }
         }
     }
 

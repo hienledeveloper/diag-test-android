@@ -1,5 +1,6 @@
 package test.diag.com.diagtest_android.modules.retrofit
 
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="test.diag.com.diagtest_android.modules.datepicker.DateUtil"/>
+
         <variable
             name="data"
             type="test.diag.com.diagtest_android.model.local.CovidArea" />
@@ -36,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:text="@{data.date}"
+                android:text="@{DateUtil.INSTANCE.date2CorrectFormat(data.date)}"
                 android:textColor="@color/textColor"
                 android:textStyle="italic"
                 tools:text="Cases: 1000" />

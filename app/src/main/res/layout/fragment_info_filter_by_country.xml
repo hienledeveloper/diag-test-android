@@ -28,15 +28,43 @@
             android:animateLayoutChanges="true"
             android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/btn_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/space_medium"
-                android:background="@drawable/bg_circle_white"
-                android:src="@drawable/ic_arrow_back"
-                android:tint="@android:color/black"
-                tools:ignore="NewApi" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/btn_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/space_medium"
+                    android:background="@drawable/bg_circle_white"
+                    android:src="@drawable/ic_arrow_back"
+                    android:tint="@android:color/black"
+                    tools:ignore="NewApi" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Clear filter"
+                    android:visibility="invisible"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/btn_filter"
+                    android:layout_gravity="center_vertical" />
+
+                <ImageButton
+                    android:id="@+id/btn_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/space_medium"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_filter"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    tools:ignore="NewApi" />
+
+            </RelativeLayout>
+
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

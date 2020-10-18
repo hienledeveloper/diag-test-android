@@ -1,16 +1,19 @@
 package test.diag.com.diagtest_android.ui.fragment
 
+import android.view.View
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import test.diag.com.diagtest_android.R
-import test.diag.com.diagtest_android.base.BaseFragment
 import test.diag.com.diagtest_android.base.BaseViewModelFragment
 import test.diag.com.diagtest_android.databinding.FragmentInfoFilterByCountryBinding
 import test.diag.com.diagtest_android.model.config.BundleKey
 import test.diag.com.diagtest_android.model.local.CovidArea
 import test.diag.com.diagtest_android.model.local.ErrorModel
 import test.diag.com.diagtest_android.modules.behavior.BehaviorViewModel
+import test.diag.com.diagtest_android.modules.datepicker.DatePickerClient
+import test.diag.com.diagtest_android.modules.datepicker.DateUtil
 import test.diag.com.diagtest_android.modules.summary.SummaryViewModel
 import test.diag.com.diagtest_android.view.adapter.CovidAreaAdapter
 
@@ -28,6 +31,8 @@ class InfoFilterByCountryFragment : BaseViewModelFragment<FragmentInfoFilterByCo
 
     private var areaAdapter: CovidAreaAdapter? = null
 
+    private var datePickerClient: DatePickerClient = DatePickerClient()
+
     override fun layoutResId(): Int = R.layout.fragment_info_filter_by_country
 
     override fun viewDidLoad() {
@@ -43,6 +48,20 @@ class InfoFilterByCountryFragment : BaseViewModelFragment<FragmentInfoFilterByCo
             strSlugCountry = slug
         }
         binding?.btnBack?.setOnClickListener { activity?.onBackPressed() }
+        binding?.btnFilter?.setOnClickListener {
+            datePickerClient.showSelectDateRange(activity) { fromDateInMili, toDateInMili ->
+                binding?.chipFilter?.visibility = View.VISIBLE
+                summaryViewModel.getInfoBySlugCountry(
+                    strSlugCountry,
+                    DateUtil.time2RequestString(fromDateInMili),
+                    DateUtil.time2RequestString(toDateInMili)
+                )
+            }
+        }
+        binding?.chipFilter?.setOnClickListener {
+            binding?.chipFilter?.visibility = View.INVISIBLE
+            summaryViewModel.getInfoBySlugCountry(strSlugCountry)
+        }
     }
 
     private fun observeViewModel() {
@@ -55,9 +74,14 @@ class InfoFilterByCountryFragment : BaseViewModelFragment<FragmentInfoFilterByCo
             binding?.global = global
         })
         summaryViewModel.observeCovidArea.observe(this, Observer { listAreas ->
-            listAreas.sortedByDescending { it.cases }.let {
-                fetchUIByAreas(it)
+            listAreas.asReversed().let {
+                if (datePickerClient.maxDate == 0L) {
+                    datePickerClient.maxDate = it.first().date.time
+                    datePickerClient.minDate = it.last().date.time
+                }
+                fetchUIByAreas(listAreas.asReversed())
             }
+
 
         })
     }
