@@ -27,7 +27,9 @@ class InfoFilterByCountryFragment : BaseViewModelFragment<FragmentInfoFilterByCo
 
     private val behaviorViewModel: BehaviorViewModel by viewModels()
 
+    private var hasFilter = false
     private var strSlugCountry: String = ""
+    private var maxCases: Int = 0
 
     private var areaAdapter: CovidAreaAdapter? = null
 
@@ -50,6 +52,7 @@ class InfoFilterByCountryFragment : BaseViewModelFragment<FragmentInfoFilterByCo
         binding?.btnBack?.setOnClickListener { activity?.onBackPressed() }
         binding?.btnFilter?.setOnClickListener {
             datePickerClient.showSelectDateRange(activity) { fromDateInMili, toDateInMili ->
+                hasFilter = true
                 binding?.chipFilter?.visibility = View.VISIBLE
                 summaryViewModel.getInfoBySlugCountry(
                     strSlugCountry,
@@ -59,6 +62,7 @@ class InfoFilterByCountryFragment : BaseViewModelFragment<FragmentInfoFilterByCo
             }
         }
         binding?.chipFilter?.setOnClickListener {
+            hasFilter = false
             binding?.chipFilter?.visibility = View.INVISIBLE
             summaryViewModel.getInfoBySlugCountry(strSlugCountry)
         }
@@ -75,9 +79,10 @@ class InfoFilterByCountryFragment : BaseViewModelFragment<FragmentInfoFilterByCo
         })
         summaryViewModel.observeCovidArea.observe(this, Observer { listAreas ->
             listAreas.asReversed().let {
-                if (datePickerClient.maxDate == 0L) {
+                if (!hasFilter) {
                     datePickerClient.maxDate = it.first().date.time
                     datePickerClient.minDate = it.last().date.time
+                    maxCases = it.first().cases
                 }
                 fetchUIByAreas(listAreas.asReversed())
             }
@@ -89,6 +94,7 @@ class InfoFilterByCountryFragment : BaseViewModelFragment<FragmentInfoFilterByCo
     private fun fetchUIByAreas(areas: List<CovidArea>) {
         if (areaAdapter == null) {
             areaAdapter = CovidAreaAdapter()
+            areaAdapter?.maxCasesInCountry = maxCases
             binding?.rclArea?.apply {
                 this.setHasFixedSize(true)
                 this.adapter = areaAdapter

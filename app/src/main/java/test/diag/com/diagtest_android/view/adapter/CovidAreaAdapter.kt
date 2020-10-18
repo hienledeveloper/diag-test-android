@@ -16,7 +16,7 @@ class CovidAreaAdapter : RecyclerView.Adapter<AreaChartHolder>() {
 
     private val items = mutableListOf<CovidArea>()
 
-    private var maxCasesInCountry = 0
+    var maxCasesInCountry = 0
 
     override fun getItemViewType(position: Int): Int = R.layout.view_area_chart
 
@@ -35,7 +35,6 @@ class CovidAreaAdapter : RecyclerView.Adapter<AreaChartHolder>() {
     fun fetch(list: List<CovidArea>) {
         items.clear()
         if (list.isNotEmpty()) {
-            maxCasesInCountry = list.first().cases
             items.addAll(list)
             notifyDataSetChanged()
         }
